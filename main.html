@@ -262,9 +262,14 @@
                 document.getElementById('reset').classList.remove('hidden');
             }
             
-            // Show verify button after second selection
+            // Show verify button only if both selected images are identical
             if (selectedImages.length === 2) {
-                document.getElementById('verify').classList.remove('hidden');
+                const firstImage = gameImages[selectedImages[0]];
+                const secondImage = gameImages[selectedImages[1]];
+                
+                if (firstImage === secondImage) {
+                    document.getElementById('verify').classList.remove('hidden');
+                }
             }
         }
 
