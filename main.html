@@ -190,14 +190,20 @@
             // Generate 6 images: 5 unique + 1 duplicate
             gameImages = [];
             
-            // Add 5 unique images
-            for (let i = 0; i < 5; i++) {
-                gameImages.push(imageTypes[i]);
+            // Choose a random image type to be the duplicate
+            const duplicateIndex = Math.floor(Math.random() * 5);
+            duplicateType = imageTypes[duplicateIndex];
+            
+            // Create array with 4 unique images + 2 identical images (the duplicate pair)
+            const uniqueImages = imageTypes.filter((_, index) => index !== duplicateIndex);
+            
+            // Add 4 unique images
+            for (let i = 0; i < 4; i++) {
+                gameImages.push(uniqueImages[i]);
             }
             
-            // Choose a random image to duplicate
-            const randomIndex = Math.floor(Math.random() * 5);
-            duplicateType = imageTypes[randomIndex];
+            // Add the duplicate pair (same image twice)
+            gameImages.push(duplicateType);
             gameImages.push(duplicateType);
             
             // Shuffle the array
@@ -206,13 +212,17 @@
                 [gameImages[i], gameImages[j]] = [gameImages[j], gameImages[i]];
             }
             
-            // Find the indices of the duplicate images
+            // Find the indices of the duplicate images after shuffling
             duplicateIndices = [];
             for (let i = 0; i < gameImages.length; i++) {
                 if (gameImages[i] === duplicateType) {
                     duplicateIndices.push(i);
                 }
             }
+            
+            console.log('Duplicate type:', duplicateType);
+            console.log('Duplicate indices:', duplicateIndices);
+            console.log('Game images:', gameImages);
             
             // Render the images
             renderImages();
