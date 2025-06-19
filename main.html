@@ -262,14 +262,9 @@
                 document.getElementById('reset').classList.remove('hidden');
             }
             
-            // Show verify button only if both selected images are identical
+            // Show verify button after second selection (regardless of whether they're identical)
             if (selectedImages.length === 2) {
-                const firstImage = gameImages[selectedImages[0]];
-                const secondImage = gameImages[selectedImages[1]];
-                
-                if (firstImage === secondImage) {
-                    document.getElementById('verify').classList.remove('hidden');
-                }
+                document.getElementById('verify').classList.remove('hidden');
             }
         }
 
@@ -302,14 +297,11 @@
             // Hide verify button
             document.getElementById('verify').classList.add('hidden');
             
-            // Check if both selected images are the duplicate ones
-            const selectedImagesSet = new Set(selectedImages);
-            const duplicateIndicesSet = new Set(duplicateIndices);
+            // Check if both selected images are identical
+            const firstImage = gameImages[selectedImages[0]];
+            const secondImage = gameImages[selectedImages[1]];
             
-            const isCorrect = selectedImagesSet.size === duplicateIndicesSet.size && 
-                             [...selectedImagesSet].every(index => duplicateIndicesSet.has(index));
-            
-            if (isCorrect) {
+            if (firstImage === secondImage) {
                 para.textContent = 'You are a human. Congratulations!';
                 para.className = 'success';
             } else {
